@@ -11,7 +11,7 @@ async function getPokemons(count) {
     if (checkPokeRepeat(usedPokemon, pokemonIndex) === false) {
       let response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonIndex}`);
       let newPokemon = await response.json();
-      
+
       pokemonList.push({
         name: newPokemon.name,
         image: newPokemon.sprites.front_default,
@@ -34,4 +34,15 @@ function checkPokeRepeat(pokemonList, newPokemon) {
   return false;
 }
 
-export default getPokemons;
+function shufflePokmeon(pokemonList) {
+  let newList = [];
+  const pokemonCount = pokemonList.length;
+  for (let i = 0; i < pokemonCount; i++) {
+    let randomIndex = Math.floor(Math.random() * pokemonList.length);
+    let randomPokemon = pokemonList.splice(randomIndex, 1);
+    newList.push(randomPokemon[0]);
+  }
+  return newList;
+}
+
+export { getPokemons, shufflePokmeon };

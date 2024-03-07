@@ -1,8 +1,8 @@
 import '../styles/Card.css';
 
-function Card({ pokemon }) {
+function Card({ pokemon, onClick }) {
   return (
-    <button className="card-container">
+    <button className="card-container" onClick={onClick}>
       <img src={pokemon.image} alt={pokemon.name} />
       <p>{pokemon.name}</p>
     </button>

@@ -1,11 +1,16 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
-import getPokemons from './getPokemon';
+import { getPokemons, shufflePokmeon } from './getPokemon';
 import Card from './components/Card.jsx';
 import './styles/Main.css';
 
 function App() {
   const [pokemons, setPokemons] = useState([]);
+
+  function shuffleCards() {
+    const newPokemonList = shufflePokmeon(pokemons);
+    setPokemons(newPokemonList);
+  }
 
   useEffect(() => {
     let loadPokemon = true;
@@ -25,7 +30,7 @@ function App() {
   return (
     <div className='cards-container'>
       {pokemons.map((pokemon) => (
-        <Card pokemon={pokemon} key={pokemon.id} />
+        <Card pokemon={pokemon} key={pokemon.id} onClick={shuffleCards} />
       ))}
     </div>
   );
