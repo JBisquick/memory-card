@@ -2,10 +2,10 @@ import '../styles/Card.css';
 
 function Card({ pokemon }) {
   return (
-    <div className="card-container">
+    <button className="card-container">
       <img src={pokemon.image} alt={pokemon.name} />
-      <div>{pokemon.name}</div>
-    </div>
+      <p>{pokemon.name}</p>
+    </button>
   );
 }
 

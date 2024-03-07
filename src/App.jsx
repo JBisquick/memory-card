@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import getPokemons from './getPokemon';
 import Card from './components/Card.jsx';
+import './styles/Main.css';
 
 function App() {
   const [pokemons, setPokemons] = useState([]);
@@ -22,7 +23,7 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <div className='cards-container'>
       {pokemons.map((pokemon) => (
         <Card pokemon={pokemon} key={pokemon.id} />
       ))}
