@@ -6,10 +6,16 @@ import './styles/Main.css';
 
 function App() {
   const [pokemons, setPokemons] = useState([]);
+  const [score, setScore] = useState(0);
 
-  function shuffleCards() {
-    const newPokemonList = shufflePokmeon(pokemons);
-    setPokemons(newPokemonList);
+  function playRound(pokemon) {
+    if (pokemon.visited === false) {
+      setScore(score + 1)
+      pokemon.visited = true;
+
+      const newPokemonList = shufflePokmeon(pokemons);
+      setPokemons(newPokemonList);
+    }
   }
 
   useEffect(() => {
@@ -28,10 +34,13 @@ function App() {
   }, []);
 
   return (
-    <div className='cards-container'>
+    <div>
+      <div>Score: {score}</div>
+      <div className='cards-container'>
       {pokemons.map((pokemon) => (
-        <Card pokemon={pokemon} key={pokemon.id} onClick={shuffleCards} />
+        <Card pokemon={pokemon} key={pokemon.id} onClick={playRound} />
       ))}
+      </div>
     </div>
   );
 }

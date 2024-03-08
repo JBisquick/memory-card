@@ -6,7 +6,7 @@ async function getPokemons(count) {
   let usedPokemon = [];
 
   for (let i = 0; i < count; ) {
-    let pokemonIndex = Math.floor(Math.random() * possiblePokemon);
+    let pokemonIndex = Math.floor(Math.random() * possiblePokemon) + 1;
 
     if (checkPokeRepeat(usedPokemon, pokemonIndex) === false) {
       let response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonIndex}`);
@@ -15,7 +15,8 @@ async function getPokemons(count) {
       pokemonList.push({
         name: newPokemon.name,
         image: newPokemon.sprites.front_default,
-        id: uuidv4()
+        id: uuidv4(),
+        visited: false
       });
       usedPokemon.push(pokemonIndex);
       i++;
