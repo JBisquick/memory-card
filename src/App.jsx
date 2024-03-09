@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { getPokemons, shufflePokmeon } from './getPokemon';
 import Card from './components/Card.jsx';
 import StartScreen from './components/StartScreen';
+import EndScreen from './components/EndScreen';
 import './styles/Main.css';
 
 function App() {
@@ -23,17 +24,29 @@ function App() {
   }
 
   function startGame() {
-    setGameState('play')
+    setGameState('play');
   }
 
   function playRound(pokemon) {
-    if (pokemon.visited === false) {
+    if (pokemon.visited === true) {
+      setGameState('lose');
+    } else if (pokemon.visited === false) {
       pokemon.visited = true;
-      setScore(score + 1)
-      
+      setScore(score + 1);
+
       const newPokemonList = shufflePokmeon(pokemons);
       setPokemons(newPokemonList);
+
+      if (score + 1 === gameMode.current) {
+        setGameState('win');
+      }
     }
+  }
+
+  function restartGame() {
+    setGameState('start');
+    setScore(0);
+    setPokemons([]);
   }
 
   useEffect(() => {
@@ -53,16 +66,19 @@ function App() {
 
   return (
     <div>
-      {gameState === 'start' && <StartScreen setDifficulty={setDifficulty} start={startGame}/>}
+      {gameState === 'start' && <StartScreen setDifficulty={setDifficulty} start={startGame} />}
       {gameState === 'play' && (
-      <div>
-        <div>Score: {score}</div>
-        <div className='cards-container'>
-        {pokemons.map((pokemon) => (
-          <Card pokemon={pokemon} key={pokemon.id} onClick={playRound} />
-        ))}
+        <div>
+          <div>Score: {score}</div>
+          <div className="cards-container">
+            {pokemons.map((pokemon) => (
+              <Card pokemon={pokemon} key={pokemon.id} onClick={playRound} />
+            ))}
+          </div>
         </div>
-      </div>)}
+      )}
+      {gameState === 'lose' && <EndScreen result={gameState} score={score} restart={restartGame} />}
+      {gameState === 'win' && <EndScreen result={gameState} score={score} restart={restartGame} />}
     </div>
   );
 }
