@@ -10,8 +10,9 @@ import './styles/Main.css';
 function App() {
   const [pokemons, setPokemons] = useState([]);
   const [score, setScore] = useState(0);
-  const [highScore, setHighScore] = useState(localStorage.getItem("highScore") || 0);
+  const [highScore, setHighScore] = useState(localStorage.getItem('highScore') || 0);
   const [gameState, setGameState] = useState('start');
+  const [flip, setFlip] = useState(false);
   let gameMode = useRef(8);
 
   function setDifficulty(e) {
@@ -28,6 +29,20 @@ function App() {
     setGameState('play');
   }
 
+  function flipCards(pokemon) {
+    setFlip(true);
+
+    // Set a bit of time before finishing the first animation
+    // and starting the second one for loading the round
+    setTimeout(() => {
+      playRound(pokemon);
+    }, 850);
+
+    setTimeout(() => {
+      setFlip(false);
+    }, 1000);
+  }
+
   function playRound(pokemon) {
     if (pokemon.visited === true) {
       setGameState('lose');
@@ -42,10 +57,10 @@ function App() {
         setGameState('win');
       }
     }
-  if (score > highScore) {
-    localStorage.setItem("highScore", score);
-    setHighScore(score + 1);
-  }
+    if (score > highScore) {
+      localStorage.setItem('highScore', score);
+      setHighScore(score + 1);
+    }
   }
 
   function restartGame() {
@@ -78,7 +93,7 @@ function App() {
           <div>High Score: {highScore}</div>
           <div className="cards-container">
             {pokemons.map((pokemon) => (
-              <Card pokemon={pokemon} key={pokemon.id} onClick={playRound} />
+              <Card pokemon={pokemon} key={pokemon.id} onClick={flipCards} flip={flip} />
             ))}
           </div>
         </div>

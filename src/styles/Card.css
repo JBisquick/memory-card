@@ -1,4 +1,14 @@
-.card-container {
+.card {
+  width: 200px;
+  height: 275px;
+  transform-style: preserve-3d;
+  transition: 850ms ease-out;
+  transform: perspective(5000px) rotateY(var(--rotate-y, 0));
+}
+
+.front {
+  width: 200px;
+  height: 275px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6,7 +16,21 @@
   border: 1px solid black;
 }
 
-.card-contiainer img {
-  width: 200px;
+.front img {
+  width: 150px;
   height: auto;
+}
+
+.card.flip {
+  --rotate-y: 180deg;
+}
+
+.card .front, 
+.card .back {
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+.card .back {
+  transform: rotateY(180deg);
 }
