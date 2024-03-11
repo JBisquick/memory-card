@@ -10,6 +10,7 @@ import './styles/Main.css';
 function App() {
   const [pokemons, setPokemons] = useState([]);
   const [score, setScore] = useState(0);
+  const [highScore, setHighScore] = useState(localStorage.getItem("highScore") || 0);
   const [gameState, setGameState] = useState('start');
   let gameMode = useRef(8);
 
@@ -41,6 +42,10 @@ function App() {
         setGameState('win');
       }
     }
+  if (score > highScore) {
+    localStorage.setItem("highScore", score);
+    setHighScore(score + 1);
+  }
   }
 
   function restartGame() {
@@ -70,6 +75,7 @@ function App() {
       {gameState === 'play' && (
         <div>
           <div>Score: {score}</div>
+          <div>High Score: {highScore}</div>
           <div className="cards-container">
             {pokemons.map((pokemon) => (
               <Card pokemon={pokemon} key={pokemon.id} onClick={playRound} />
