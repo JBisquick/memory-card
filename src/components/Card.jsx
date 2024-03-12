@@ -1,10 +1,9 @@
 import '../styles/Card.css';
-import backCard from "../public/back-card.jpg"
+import backCard from '../public/back-card.jpg';
 
 function Card({ pokemon, onClick, flip }) {
-
   return (
-    <div className={`card ${flip ? "flip" : ""}`} >
+    <div className={`card ${flip ? 'flip' : ''}`}>
       <button
         className="front"
         onClick={() => {

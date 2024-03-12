@@ -5,6 +5,7 @@ import { getPokemons, shufflePokmeon } from './getPokemon';
 import Card from './components/Card.jsx';
 import StartScreen from './components/StartScreen';
 import EndScreen from './components/EndScreen';
+import loadingGif from './public/pikachu-running.gif';
 import './styles/Main.css';
 
 function App() {
@@ -12,16 +13,17 @@ function App() {
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(localStorage.getItem('highScore') || 0);
   const [gameState, setGameState] = useState('start');
-  const [flip, setFlip] = useState(false);
+  const [flip, setFlip] = useState(true);
+  const [loading, setLoading] = useState(false);
   let gameMode = useRef(8);
 
   function setDifficulty(e) {
     if (e.target.textContent === 'Easy') {
       gameMode.current = 8;
     } else if (e.target.textContent === 'Medium') {
-      gameMode.current = 16;
+      gameMode.current = 14;
     } else {
-      gameMode.current = 24;
+      gameMode.current = 20;
     }
   }
 
@@ -36,11 +38,11 @@ function App() {
     // and starting the second one for loading the round
     setTimeout(() => {
       playRound(pokemon);
-    }, 850);
+    }, 600);
 
     setTimeout(() => {
       setFlip(false);
-    }, 1000);
+    }, 750);
   }
 
   function playRound(pokemon) {
@@ -73,9 +75,20 @@ function App() {
     let loadPokemon = true;
 
     const fetchData = async () => {
-      const data = await getPokemons(gameMode.current);
       if (loadPokemon === true && gameState === 'play') {
-        setPokemons(data);
+        // To start loading animation with back card
+        setFlip(true);
+        setLoading(true);
+        setTimeout(async () => {
+          const data = await getPokemons(gameMode.current);
+          setLoading(false);
+          setPokemons(data);
+
+          setTimeout(() => {
+            // flip once loaded
+            setFlip(false);
+          }, 100);
+        }, 350);
       }
     };
 
@@ -87,7 +100,13 @@ function App() {
   return (
     <div>
       {gameState === 'start' && <StartScreen setDifficulty={setDifficulty} start={startGame} />}
-      {gameState === 'play' && (
+      {loading === true && (
+        <>
+          <img src={loadingGif} alt="" />
+          <div>LOADING</div>
+        </>
+      )}
+      {gameState === 'play' && !loading && (
         <div>
           <div>Score: {score}</div>
           <div>High Score: {highScore}</div>
