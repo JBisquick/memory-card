@@ -15,15 +15,15 @@ function App() {
   const [gameState, setGameState] = useState('start');
   const [flip, setFlip] = useState(true);
   const [loading, setLoading] = useState(false);
-  let gameMode = useRef(8);
+  const [gameMode, setGameMode] = useState(8);
 
   function setDifficulty(e) {
     if (e.target.textContent === 'Easy') {
-      gameMode.current = 8;
+      setGameMode(8);
     } else if (e.target.textContent === 'Medium') {
-      gameMode.current = 14;
+      setGameMode(14);
     } else {
-      gameMode.current = 20;
+      setGameMode(20);
     }
   }
 
@@ -38,11 +38,11 @@ function App() {
     // and starting the second one for loading the round
     setTimeout(() => {
       playRound(pokemon);
-    }, 600);
+    }, 550);
 
     setTimeout(() => {
       setFlip(false);
-    }, 750);
+    }, 700);
   }
 
   function playRound(pokemon) {
@@ -80,7 +80,7 @@ function App() {
         setFlip(true);
         setLoading(true);
         setTimeout(async () => {
-          const data = await getPokemons(gameMode.current);
+          const data = await getPokemons(gameMode);
           setLoading(false);
           setPokemons(data);
 
@@ -88,7 +88,7 @@ function App() {
             // flip once loaded
             setFlip(false);
           }, 100);
-        }, 350);
+        }, 500);
       }
     };
 
@@ -98,13 +98,13 @@ function App() {
   }, [gameState]);
 
   return (
-    <div>
-      {gameState === 'start' && <StartScreen setDifficulty={setDifficulty} start={startGame} />}
+    <div className='container'>
+      {gameState === 'start' && <StartScreen setDifficulty={setDifficulty} start={startGame} difficulty={gameMode} />}
       {loading === true && (
-        <>
+        <div>
           <img src={loadingGif} alt="" />
           <div>LOADING</div>
-        </>
+        </div>
       )}
       {gameState === 'play' && !loading && (
         <div>

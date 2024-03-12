@@ -1,12 +1,22 @@
-function StartScreen({ setDifficulty, start }) {
+import '../styles/StartScreen.css';
+
+function StartScreen({ setDifficulty, start, difficulty }) {
   return (
-    <div>
-      <div>
-        <button onClick={setDifficulty}>Easy</button>
-        <button onClick={setDifficulty}>Medium</button>
-        <button onClick={setDifficulty}>Hard</button>
+    <div className="start-container">
+      <button className="start" onClick={start}>
+        <span className="front-start">Start Game</span>
+      </button>
+      <div className='button-container'>
+        <button onClick={setDifficulty} className="easy">
+          <span className={`front-easy ${difficulty === 8 ? 'pressed' : ''}`}>Easy</span>
+        </button>
+        <button onClick={setDifficulty} className="medium">
+          <span className={`front-medium ${difficulty === 14 ? 'pressed' : ''}`}>Medium</span>
+        </button>
+        <button onClick={setDifficulty} className="hard">
+          <span className={`front-hard ${difficulty === 20 ? 'pressed' : ''}`}>Hard</span>
+        </button>
       </div>
-      <button onClick={start}>Start Game</button>
     </div>
   );
 }

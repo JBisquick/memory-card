@@ -2,7 +2,7 @@
   width: 200px;
   height: 275px;
   transform-style: preserve-3d;
-  transition: 600ms ease-out;
+  transition: 550ms ease-out;
   transform: perspective(5000px) rotateY(var(--rotate-y, 0));
 }
 
