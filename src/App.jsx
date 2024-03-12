@@ -98,8 +98,10 @@ function App() {
   }, [gameState]);
 
   return (
-    <div className='container'>
-      {gameState === 'start' && <StartScreen setDifficulty={setDifficulty} start={startGame} difficulty={gameMode} />}
+    <div className="container">
+      {gameState === 'start' && (
+        <StartScreen setDifficulty={setDifficulty} start={startGame} difficulty={gameMode} />
+      )}
       {loading === true && (
         <div>
           <img src={loadingGif} alt="" />

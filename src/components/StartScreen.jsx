@@ -6,7 +6,7 @@ function StartScreen({ setDifficulty, start, difficulty }) {
       <button className="start" onClick={start}>
         <span className="front-start">Start Game</span>
       </button>
-      <div className='button-container'>
+      <div className="button-container">
         <button onClick={setDifficulty} className="easy">
           <span className={`front-easy ${difficulty === 8 ? 'pressed' : ''}`}>Easy</span>
         </button>

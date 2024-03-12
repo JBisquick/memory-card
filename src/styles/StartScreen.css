@@ -3,7 +3,7 @@
   flex-direction: column;
   border: 5px solid black;
   border-radius: 5px;
-  padding: 25px 20px; 
+  padding: 25px 20px;
   align-items: center;
   justify-content: center;
   background-color: rgb(240, 240, 211);
@@ -45,7 +45,6 @@
   font-size: 1rem;
 }
 
-
 .start {
   background: hsl(340deg 100% 32%);
   margin-bottom: 15px;
@@ -58,30 +57,30 @@
 }
 
 .easy {
-  background: rgba(137,106,51,255);
+  background: rgba(137, 106, 51, 255);
 }
 
 .front-easy {
-  background: rgba(230,155,42,255);
+  background: rgba(230, 155, 42, 255);
 }
 
 .medium {
-  background: rgba(66,89,114,255);
+  background: rgba(66, 89, 114, 255);
   margin-top: 10px;
 }
 
 .front-medium {
   font-size: 1rem;
-  background: rgba(37,147,203,255);
+  background: rgba(37, 147, 203, 255);
 }
 
 .hard {
-  background: rgba(81,113,61,255);
+  background: rgba(81, 113, 61, 255);
 }
 
 .front-hard {
   font-size: 1rem;
-  background: rgba(91,178,42,255);
+  background: rgba(91, 178, 42, 255);
 }
 
 .pressed {
