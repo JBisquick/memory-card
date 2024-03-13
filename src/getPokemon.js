@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 async function getPokemons(count) {
-  const possiblePokemon = 1025;
+  const possiblePokemon = 649;
   let pokemonList = [];
   let usedPokemon = [];
 
@@ -11,6 +11,8 @@ async function getPokemons(count) {
     if (checkPokeRepeat(usedPokemon, pokemonIndex) === false) {
       let response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonIndex}`);
       let newPokemon = await response.json();
+
+      newPokemon.name = newPokemon.name[0].toUpperCase() + newPokemon.name.slice(1);
 
       pokemonList.push({
         name: newPokemon.name,

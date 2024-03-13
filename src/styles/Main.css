@@ -1,20 +1,83 @@
+@font-face {
+  font-family: 'pokemon';
+  src: url(../public/pokemon.ttf);
+}
+html,
 body {
   margin: 0;
+  padding: 0;
+}
+
+button {
+  font-family: 'pokemon', sans-serif;
 }
 
 .container {
+  font-family: 'pokemon', sans-serif;
   width: 100vw;
   height: 100vh;
   background-image: url(../public/background.png);
   background-size: cover;
-  background-position: 50% 80%;
+  background-position: 50% 72%;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: auto;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+}
+
+.score-container {
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: black;
+}
+
+.title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: black;
+}
+
+.title-container img {
+  height: 4rem;
+  width: auto;
 }
 
 .cards-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 200px);
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
   gap: 15px;
+  margin: 20px 20px;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  color: black;
+  font-weight: 900;
+}
+
+.loading-container img {
+  width: 375px;
+  height: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .cards-container {
+    margin: 5px 5px;
+  }
 }

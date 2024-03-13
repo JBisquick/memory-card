@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { useRef } from 'react';
 import { useEffect } from 'react';
 import { getPokemons, shufflePokmeon } from './getPokemon';
 import Card from './components/Card.jsx';
 import StartScreen from './components/StartScreen';
 import EndScreen from './components/EndScreen';
 import loadingGif from './public/pikachu-running.gif';
+import icon from './public/icon.avif';
 import './styles/Main.css';
 
 function App() {
@@ -55,12 +55,12 @@ function App() {
       const newPokemonList = shufflePokmeon(pokemons);
       setPokemons(newPokemonList);
 
-      if (score + 1 === gameMode.current) {
+      if (score + 1 >= gameMode) {
         setGameState('win');
       }
     }
-    if (score > highScore) {
-      localStorage.setItem('highScore', score);
+    if (score >= highScore) {
+      localStorage.setItem('highScore', score + 1);
       setHighScore(score + 1);
     }
   }
@@ -103,15 +103,21 @@ function App() {
         <StartScreen setDifficulty={setDifficulty} start={startGame} difficulty={gameMode} />
       )}
       {loading === true && (
-        <div>
-          <img src={loadingGif} alt="" />
-          <div>LOADING</div>
+        <div className="loading-container">
+          <img src={loadingGif} />
+          <div>LOADING...</div>
         </div>
       )}
       {gameState === 'play' && !loading && (
-        <div>
-          <div>Score: {score}</div>
-          <div>High Score: {highScore}</div>
+        <div className="game-container">
+          <div className="title-container">
+            <img src={icon} />
+            <div>Pokemon Memory</div>
+          </div>
+          <div className="score-container">
+            <div>Score: {score}</div>
+            <div>High Score: {highScore}</div>
+          </div>
           <div className="cards-container">
             {pokemons.map((pokemon) => (
               <Card pokemon={pokemon} key={pokemon.id} onClick={flipCards} flip={flip} />
